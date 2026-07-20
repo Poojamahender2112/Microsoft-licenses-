@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS License Field Guide — Redington</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D1117;
+  --surface:#161B22;
+  --surface2:#21262D;
+  --border:#30363D;
+  --ink:#E6EDF3;
+  --ink2:#8B949E;
+  --ink3:#656D76;
+  --blue:#58A6FF;
+  --green:#3FB950;
+  --orange:#F0883E;
+  --purple:#BC8CFF;
+  --red:#FF7B72;
+  --yellow:#E3B341;
+  --teal:#39D2B4;
+  --cat-core:#58A6FF;
+  --cat-exchange:#3FB950;
+  --cat-security:#FF7B72;
+  --cat-teams:#BC8CFF;
+  --cat-bi:#F0883E;
+  --cat-productivity:#E3B341;
+  --cat-special:#39D2B4;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Space Grotesk',sans-serif;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+code,.mono{font-family:'JetBrains Mono',monospace;}
+
+/* HEADER */
+.site-header{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:20px 32px;
+  display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:100;
+}
+.logo{font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--ink2); font-weight:500; letter-spacing:.06em;}
+.logo strong{color:var(--blue);}
+.header-title{font-size:1.05rem; font-weight:700; color:var(--ink);}
+.header-search{
+  margin-left:auto; background:var(--bg); border:1px solid var(--border);
+  border-radius:6px; padding:8px 14px; color:var(--ink); font-family:'Space Grotesk',sans-serif;
+  font-size:.88rem; width:280px; outline:none;
+}
+.header-search:focus{border-color:var(--blue);}
+.header-search::placeholder{color:var(--ink3);}
+
+/* HERO */
+.hero{padding:54px 32px 0; max-width:1300px; margin:0 auto;}
+.eyebrow{font-family:'JetBrains Mono',monospace; font-size:.72rem; color:var(--blue); letter-spacing:.1em; text-transform:uppercase; margin-bottom:12px;}
+.hero h1{font-size:2.4rem; line-height:1.15; font-weight:700; margin-bottom:14px; max-width:680px;}
+.hero h1 em{font-style:normal; color:var(--blue);}
+.hero-sub{color:var(--ink2); font-size:1rem; line-height:1.65; max-width:600px; margin-bottom:32px;}
+
+/* TIER LADDER */
+.tier-wrap{overflow-x:auto; padding-bottom:16px; margin-bottom:0;}
+.tier-ladder{
+  display:flex; gap:2px; min-width:900px;
+  border:1px solid var(--border); border-radius:8px; overflow:hidden; background:var(--surface2);
+}
+.tier{
+  flex:1; padding:16px 18px; border-right:1px solid var(--border); cursor:pointer;
+  transition:background .15s;
+}
+.tier:last-child{border-right:none;}
+.tier:hover{background:var(--surface);}
+.tier-label{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink3); margin-bottom:6px;}
+.tier-name{font-size:.92rem; font-weight:700; color:var(--ink); margin-bottom:10px;}
+.tier-features{list-style:none; font-size:.76rem; color:var(--ink2); line-height:1.8;}
+.tier-features li::before{content:"✓ "; color:var(--green);}
+.tier-features li.missing::before{content:"✗ "; color:var(--border);}
+.tier-features li.missing{color:var(--ink3);}
+.tier-price{margin-top:12px; font-family:'JetBrains Mono',monospace; font-size:.9rem; font-weight:600; color:var(--yellow);}
+.tier.highlight{background:rgba(88,166,255,.07); border-top:2px solid var(--blue);}
+
+/* CATEGORY PILLS */
+.cat-bar{
+  padding:28px 32px 0; max-width:1300px; margin:0 auto;
+  display:flex; gap:10px; flex-wrap:wrap;
+}
+.cat-pill{
+  background:var(--surface2); border:1px solid var(--border); border-radius:20px;
+  padding:7px 16px; font-size:.82rem; font-weight:600; cursor:pointer; color:var(--ink2);
+  transition:all .15s; white-space:nowrap;
+}
+.cat-pill:hover{border-color:var(--blue); color:var(--ink);}
+.cat-pill.active{color:#fff; border-color:transparent;}
+.cat-pill[data-cat="all"].active{background:var(--blue);}
+.cat-pill[data-cat="Core M365"].active{background:var(--cat-core);}
+.cat-pill[data-cat="Exchange"].active{background:var(--cat-exchange);}
+.cat-pill[data-cat="Security"].active{background:var(--cat-security);}
+.cat-pill[data-cat="Teams"].active{background:var(--cat-teams);}
+.cat-pill[data-cat="Power BI"].active{background:var(--cat-bi);}
+.cat-pill[data-cat="Productivity"].active{background:var(--cat-productivity);}
+.cat-pill[data-cat="Specialized"].active{background:var(--cat-special);}
+.result-note{font-size:.78rem; color:var(--ink3); font-family:'JetBrains Mono',monospace; margin-left:auto; display:flex; align-items:center;}
+
+/* GRID */
+.grid-section{padding:24px 32px 60px; max-width:1300px; margin:0 auto;}
+.cat-heading{
+  font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
+  margin:32px 0 16px; display:flex; align-items:center; gap:14px; color:var(--ink2);
+}
+.cat-heading::after{content:""; flex:1; height:1px; background:var(--border);}
+.cat-dot{width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:4px;}
+.cards-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px;}
+.product-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:8px;
+  cursor:pointer; transition:border-color .15s, transform .1s; overflow:hidden;
+}
+.product-card:hover{border-color:var(--blue); transform:translateY(-1px);}
+.card-top{padding:20px 22px 14px; display:flex; gap:14px; align-items:flex-start;}
+.card-icon{
+  width:42px; height:42px; border-radius:8px; display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; flex-shrink:0; font-style:normal;
+}
+.card-meta{flex:1;}
+.card-cat{font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; font-weight:600;}
+.card-name{font-size:1rem; font-weight:700; color:var(--ink); line-height:1.2; margin-bottom:6px;}
+.card-oneliner{font-size:.82rem; color:var(--ink2); line-height:1.5;}
+.card-bottom{
+  padding:12px 22px 14px; border-top:1px solid var(--border);
+  display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+}
+.tag{
+  font-size:.68rem; font-weight:600; padding:3px 9px; border-radius:12px;
+  font-family:'JetBrains Mono',monospace;
+}
+.tag-smb{background:rgba(63,185,80,.12); color:var(--green);}
+.tag-ent{background:rgba(88,166,255,.12); color:var(--blue);}
+.tag-front{background:rgba(240,136,62,.12); color:var(--orange);}
+.tag-sec{background:rgba(255,123,114,.12); color:var(--red);}
+.tag-addon{background:rgba(188,140,255,.12); color:var(--purple);}
+.card-price{margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--yellow); font-weight:600;}
+.expand-hint{font-size:.7rem; color:var(--ink3); margin-top:2px; font-style:italic;}
+
+/* MODAL */
+.overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:200;
+  display:none; align-items:flex-start; justify-content:center; overflow-y:auto; padding:40px 20px;
+}
+.overlay.open{display:flex;}
+.modal{
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  width:100%; max-width:760px; padding:0; overflow:hidden; position:relative;
+  margin:auto;
+}
+.modal-header{
+  padding:28px 30px 22px; border-bottom:1px solid var(--border);
+  display:flex; gap:18px; align-items:flex-start;
+}
+.modal-icon{width:52px; height:52px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.8rem; flex-shrink:0;}
+.modal-titles{flex:1;}
+.modal-cat{font-family:'JetBrains Mono',monospace; font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; font-weight:600;}
+.modal-name{font-size:1.4rem; font-weight:700; color:var(--ink); line-height:1.2; margin-bottom:4px;}
+.modal-sku{font-family:'JetBrains Mono',monospace; font-size:.68rem; color:var(--ink3);}
+.modal-close{background:none; border:1px solid var(--border); border-radius:6px; color:var(--ink2); cursor:pointer; font-size:1rem; padding:6px 10px; font-family:'Space Grotesk',sans-serif; flex-shrink:0;}
+.modal-close:hover{background:var(--surface2);}
+.modal-body{padding:24px 30px; overflow-y:auto; max-height:68vh;}
+.modal-section{margin-bottom:26px;}
+.modal-section:last-child{margin-bottom:0;}
+.modal-section-title{
+  font-size:.75rem; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:.08em;
+  color:var(--ink3); margin-bottom:12px; padding-bottom:6px; border-bottom:1px solid var(--border);
+}
+.modal-desc{color:var(--ink2); font-size:.93rem; line-height:1.65;}
+.pro-con-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.pro-box, .con-box{background:var(--surface2); border-radius:6px; padding:14px 16px;}
+.pro-box{border-left:3px solid var(--green);}
+.con-box{border-left:3px solid var(--red);}
+.pro-box h4{color:var(--green); font-size:.75rem; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;}
+.con-box h4{color:var(--red); font-size:.75rem; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;}
+.pro-box ul, .con-box ul{list-style:none; padding:0; font-size:.85rem; color:var(--ink2); line-height:1.75;}
+.usecase-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+.usecase{background:var(--surface2); border-radius:6px; padding:12px 14px;}
+.usecase-company{font-size:.78rem; font-weight:700; color:var(--ink); margin-bottom:4px;}
+.usecase-detail{font-size:.78rem; color:var(--ink2); line-height:1.5;}
+.who-chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+.who-chip{background:var(--surface2); border:1px solid var(--border); border-radius:20px; padding:5px 12px; font-size:.78rem; color:var(--ink2);}
+.pitch-box{background:rgba(88,166,255,.06); border:1px solid rgba(88,166,255,.2); border-radius:6px; padding:14px 16px; font-size:.88rem; color:var(--ink2); line-height:1.65;}
+.pitch-box strong{color:var(--blue);}
+.price-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;}
+.price-chip{background:var(--surface2); border-radius:6px; padding:8px 14px; text-align:center;}
+.price-chip .label{font-size:.62rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink3); font-family:'JetBrains Mono',monospace;}
+.price-chip .val{font-size:.95rem; font-weight:700; color:var(--yellow); font-family:'JetBrains Mono',monospace; margin-top:2px;}
+.no-results{padding:60px 32px; text-align:center; color:var(--ink3); font-size:.95rem;}
+
+/* colors per cat */
+.cat-color-core{color:var(--cat-core);}
+.cat-color-exchange{color:var(--cat-exchange);}
+.cat-color-security{color:var(--cat-security);}
+.cat-color-teams{color:var(--cat-teams);}
+.cat-color-bi{color:var(--cat-bi);}
+.cat-color-productivity{color:var(--cat-productivity);}
+.cat-color-special{color:var(--cat-special);}
+.icon-bg-core{background:rgba(88,166,255,.12);}
+.icon-bg-exchange{background:rgba(63,185,80,.12);}
+.icon-bg-security{background:rgba(255,123,114,.12);}
+.icon-bg-teams{background:rgba(188,140,255,.12);}
+.icon-bg-bi{background:rgba(240,136,62,.12);}
+.icon-bg-productivity{background:rgba(227,179,65,.12);}
+.icon-bg-special{background:rgba(57,210,180,.12);}
+
+@media(max-width:640px){
+  .site-header{flex-wrap:wrap; gap:10px;}
+  .header-search{width:100%; margin-left:0;}
+  .hero{padding:30px 16px 0;}
+  .hero h1{font-size:1.7rem;}
+  .cat-bar{padding:20px 16px 0;}
+  .grid-section{padding:16px 16px 40px;}
+  .cards-grid{grid-template-columns:1fr;}
+  .pro-con-grid,.usecase-grid{grid-template-columns:1fr;}
+  .modal-body{max-height:75vh;}
+  .tier-ladder{min-width:600px;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div>
+    <div class="logo"><strong>REDINGTON</strong> · MS-DESK</div>
+    <div class="header-title">Microsoft License Field Guide</div>
+  </div>
+  <input class="header-search" type="text" id="searchInput" placeholder="Search any product or use case…">
+</header>
+
+<section class="hero">
+  <p class="eyebrow">Intern Reference · CSP Product Library</p>
+  <h1>Every license you'll sell — <em>decoded</em></h1>
+  <p class="hero-sub">Click any card to see what the license does, who it's for, the pros and cons, real-world use cases, and exactly how to pitch it to a partner.</p>
+
+  <!-- TIER LADDER: M365 core stack -->
+  <p style="font-size:.8rem;color:var(--ink3);margin-bottom:12px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;">How the core M365 tiers stack up — click to jump</p>
+  <div class="tier-wrap">
+    <div class="tier-ladder">
+      <div class="tier" onclick="openModal('bbasic')">
+        <div class="tier-label">SMB Starter</div>
+        <div class="tier-name">Business Basic</div>
+        <ul class="tier-features">
+          <li>Web-only Office apps</li>
+          <li>Teams</li>
+          <li>1 TB OneDrive</li>
+          <li class="missing">No desktop apps</li>
+          <li class="missing">No Intune</li>
+        </ul>
+        <div class="tier-price">₹174/user/mo</div>
+      </div>
+      <div class="tier" onclick="openModal('bstandard')">
+        <div class="tier-label">SMB Mid</div>
+        <div class="tier-name">Business Standard</div>
+        <ul class="tier-features">
+          <li>Desktop Office apps</li>
+          <li>Teams</li>
+          <li>1 TB OneDrive</li>
+          <li>Bookings</li>
+          <li class="missing">No Intune</li>
+        </ul>
+        <div class="tier-price">₹924/user/mo</div>
+      </div>
+      <div class="tier" onclick="openModal('e1')">
+        <div class="tier-label">Enterprise Entry</div>
+        <div class="tier-name">Office 365 E1</div>
+        <ul class="tier-features">
+          <li>Web-only Office apps</li>
+          <li>Exchange + SharePoint</li>
+          <li>50 GB mailbox</li>
+          <li class="missing">No Teams</li>
+          <li class="missing">No desktop apps</li>
+        </ul>
+        <div class="tier-price">₹678/user/mo</div>
+      </div>
+      <div class="tier highlight" onclick="openModal('m365e3')">
+        <div class="tier-label">Enterprise Standard ★ Best Seller</div>
+        <div class="tier-name">Microsoft 365 E3</div>
+        <ul class="tier-features">
+          <li>Desktop Office apps</li>
+          <li>Exchange + SharePoint + Teams</li>
+          <li>Intune MDM</li>
+          <li>Azure AD P1</li>
+          <li>100 GB mailbox</li>
+        </ul>
+        <div class="tier-price">₹3,594/user/mo</div>
+      </div>
+      <div class="tier" onclick="openModal('m365e5')">
+        <div class="tier-label">Enterprise Premium</div>
+        <div class="tier-name">Microsoft 365 E5</div>
+        <ul class="tier-features">
+          <li>Everything in E3</li>
+          <li>Defender for Endpoint P2</li>
+          <li>Azure AD P2</li>
+          <li>Power BI Pro</li>
+          <li>Compliance suite</li>
+        </ul>
+        <div class="tier-price">₹5,688/user/mo</div>
+      </div>
+      <div class="tier" onclick="openModal('f3')">
+        <div class="tier-label">Frontline Workers</div>
+        <div class="tier-name">Microsoft 365 F3</div>
+        <ul class="tier-features">
+          <li>Mobile-only Office</li>
+          <li>Teams Shifts</li>
+          <li>Intune included</li>
+          <li class="missing">No desktop apps</li>
+          <li class="missing">2 GB mailbox only</li>
+        </ul>
+        <div class="tier-price">₹798/user/mo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cat-bar">
+  <button class="cat-pill active" data-cat="all">All Products</button>
+  <button class="cat-pill" data-cat="Core M365">📦 Core M365</button>
+  <button class="cat-pill" data-cat="Exchange">📧 Exchange</button>
+  <button class="cat-pill" data-cat="Security">🛡️ Security</button>
+  <button class="cat-pill" data-cat="Teams">💬 Teams</button>
+  <button class="cat-pill" data-cat="Power BI">📊 Power BI</button>
+  <button class="cat-pill" data-cat="Productivity">🗂️ Productivity</button>
+  <button class="cat-pill" data-cat="Specialized">⚡ Specialized</button>
+  <span class="result-note" id="resultNote"></span>
+</div>
+
+<div class="grid-section" id="gridSection"></div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-icon" id="mIcon"></div>
+      <div class="modal-titles">
+        <div class="modal-cat" id="mCat"></div>
+        <div class="modal-name" id="mName"></div>
+        <div class="modal-sku" id="mSku"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕ Close</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const PRODUCTS = [
+  {
+    id:"m365e3", cat:"Core M365", icon:"🏢", iconBg:"icon-bg-core", catColor:"cat-color-core",
+    name:"Microsoft 365 E3",
+    sku:"CFQ7TTC0LFLX",
+    oneliner:"The gold-standard enterprise bundle — Office apps, security, device management, and compliance in one.",
+    tags:["tag-ent"],tagLabels:["Enterprise"],
+    erp:"₹3,594", nett:"₹493,643 (150 seats example)",
+    desc:"M365 E3 bundles the full desktop Office suite (Word, Excel, PowerPoint, Outlook, OneNote), Teams, Exchange Online with a 100 GB mailbox, SharePoint, OneDrive (1 TB), Intune for device management, and Azure AD P1 for single sign-on and MFA. It's the most popular enterprise starting point.",
+    pros:["Full desktop + web Office apps on up to 5 devices","Intune MDM/MAM included — manage corporate phones/laptops","Azure AD P1 = conditional access, MFA, SSO","100 GB mailbox + unlimited archive via in-place hold","Compliance tools: eDiscovery, retention, DLP basics","Auto-save to OneDrive and SharePoint built-in"],
+    cons:["No Power BI Pro (need E5 or add-on for that)","No advanced threat protection (Defender P2 needs E5)","No audio conferencing for Teams calls (needs add-on)","Expensive for basic users who only need email"],
+    usecases:[
+      {co:"IT company with 200 employees",detail:"All staff get M365 E3 — Intune manages all corporate laptops and mobiles, Outlook on desktop, and SharePoint for file sharing."},
+      {co:"Law firm",detail:"Uses E3 for the compliance features — eDiscovery to retrieve emails in case of legal holds, plus DLP to stop confidential docs being emailed out."},
+      {co:"Mid-size manufacturer",detail:"HQ staff on E3; shop-floor workers on F3 (frontline). HQ staff run Excel for planning, PowerPoint for client decks."},
+      {co:"Consulting firm",detail:"E3 lets consultants install Office on their laptop, home PC, and phone — works offline when travelling."},
+    ],
+    who:["Knowledge workers","Office-based staff","IT teams managing devices","Any org needing DLP/compliance"],
+    pitch:"Ask the partner: <strong>'Does your customer manage company devices?'</strong> If yes, they need Intune — which means E3 minimum. If they're still on E1 (no desktop apps), the ROI pitch is: employees currently installing pirated Office or personal copies goes away, and IT gains full control of every device."
+  },
+  {
+    id:"m365e5", cat:"Core M365", icon:"🏛️", iconBg:"icon-bg-core", catColor:"cat-color-core",
+    name:"Microsoft 365 E5 (without Audio Conferencing)",
+    sku:"CFQ7TTC0LFLZ",
+    oneliner:"The security and compliance powerhouse for organizations that cannot afford to be breached.",
+    tags:["tag-ent","tag-sec"],tagLabels:["Enterprise","High Security"],
+    erp:"₹5,688", nett:"₹13,244,930 (2543 seats example)",
+    desc:"E5 includes everything in E3 plus Microsoft's entire security stack: Defender for Endpoint P2, Defender for Identity, Defender for Cloud Apps, Azure AD P2 (Privileged Identity Management, Identity Protection), advanced compliance tools (Communication Compliance, Customer Lockbox), and Power BI Pro. It is the top-tier Microsoft license.",
+    pros:["Entire Defender security suite included — no separate add-ons","Azure AD P2 — PIM for just-in-time admin access","Power BI Pro included","Advanced compliance: Communication Compliance, Customer Lockbox","eDiscovery premium with AI-driven content review","Worth it financially if you'd otherwise buy Defender + EMS + AADP2 separately"],
+    cons:["Most expensive license — hard to justify for every employee","Audio Conferencing not included in this SKU — common gotcha","Overkill for SMBs or basic office users","Complex to deploy and govern all the features"],
+    usecases:[
+      {co:"Bank or NBFC",detail:"Regulatory requirements mandate full audit trails, DLP, and advanced threat protection. E5 is the minimum standard."},
+      {co:"Government contractor",detail:"Needs Defender for Identity to spot when admin credentials are being misused — one of E5's key features."},
+      {co:"Hospital chain",detail:"Patient data protection via compliance policies, Communication Compliance for checking staff messages, and DLP to block patient records being emailed externally."},
+      {co:"Enterprise upgrading from E3",detail:"If the partner already sells E3, ask: do they have Defender add-ons? Defender for Endpoint P2 + AADP2 alone nearly matches E5 cost — so E5 becomes the better deal."},
+    ],
+    who:["BFSI / Finance companies","Highly regulated industries","Large enterprises (500+ users)","Security-first organizations"],
+    pitch:"Tell partners: <strong>'Add up what your customer pays for Defender for Endpoint P2 + Azure AD P2 + Power BI Pro separately. Then look at E5.'</strong> For regulated industries that need all three, E5 almost always wins on total cost — and they get every other security feature free on top."
+  },
+  {
+    id:"f3", cat:"Core M365", icon:"🦺", iconBg:"icon-bg-core", catColor:"cat-color-core",
+    name:"Microsoft 365 F3",
+    sku:"CFQ7TTC0LH05",
+    oneliner:"Built for factory floors, retail staff, nurses, and delivery workers who don't sit at a desk.",
+    tags:["tag-front"],tagLabels:["Frontline Workers"],
+    erp:"₹798", nett:"₹182,301 (242 seats example)",
+    desc:"F3 is Microsoft's frontline worker license. Workers get mobile and web-only Office apps (no desktop), a 2 GB Outlook mailbox, Teams with Shifts (scheduling) and Walkie-Talkie, Intune for mobile device management, and access to Power Apps. It is intentionally limited for non-desk staff.",
+    pros:["Cheapest M365 license that includes Intune MDM","Teams Shifts for scheduling factory/retail rosters","Walkie-Talkie mode on Teams replaces physical radios","Power Apps access — build simple apps for shop floor","Good for shared-device scenarios (multiple workers, one tablet)"],
+    cons:["Only 2 GB mailbox — essentially no email for heavy users","No desktop Office apps — can't install Word/Excel on PC","Web Office apps only — useless without internet","Can't be used on PCs easily — strictly mobile/kiosk"],
+    usecases:[
+      {co:"Retail chain with 1000 store staff",detail:"Managers get M365 E3; cashiers and floor staff get F3 — Teams Shifts for scheduling, and company updates pushed via Teams."},
+      {co:"Manufacturing plant",detail:"Shop-floor workers use shared tablets with F3 for shift check-ins, safety procedure checklists built in Power Apps, and Walkie-Talkie comms."},
+      {co:"Hospital",detail:"Nurses get F3 on shared iPads for shift handover notes and compliance checklists. Doctors get E3."},
+      {co:"Logistics/delivery company",detail:"Delivery riders get F3 on company phones — route info, delivery confirmations, and company announcements via Teams."},
+    ],
+    who:["Retail staff","Factory/warehouse workers","Nurses, care workers","Delivery and field teams"],
+    pitch:"The hook: <strong>'Your customer is probably paying E3 for workers who never touch a PC.'</strong> Downgrading non-desk staff from E3 to F3 saves ₹2,796/user/month. For 500 frontline workers, that's ₹16.7 lakh per month saved."
+  },
+  {
+    id:"e1", cat:"Core M365", icon:"☁️", iconBg:"icon-bg-core", catColor:"cat-color-core",
+    name:"Office 365 E1 (no Teams)",
+    sku:"CFQ7TTC0LF8Q",
+    oneliner:"Cloud-first enterprise: web Office apps, email, and SharePoint — but no Teams or desktop Office.",
+    tags:["tag-ent"],tagLabels:["Enterprise"],
+    erp:"₹678", nett:"₹11,174 (18 seats example)",
+    desc:"O365 E1 gives enterprise users access to web-based Office apps (not desktop), Exchange Online Plan 1 (50 GB mailbox), SharePoint Online, and OneDrive (1 TB). Teams is explicitly not included in this SKU — customers must use Microsoft Teams Essentials or Enterprise as a separate add-on.",
+    pros:["Low-cost entry to enterprise cloud productivity","Web apps work on any browser — no device dependency","SharePoint for intranet and document collaboration","50 GB mailbox per user"],
+    cons:["No desktop Office apps — frustrating for heavy Excel/Word users","No Teams — must purchase separately","No Intune device management","No Azure AD P1 — no conditional access or advanced MFA","No compliance tools"],
+    usecases:[
+      {co:"NGO with basic IT needs",detail:"Staff only need email and SharePoint for document sharing. Web-only apps are fine. No budget for full E3."},
+      {co:"Union with Teams already via another SKU",detail:"Existing Teams deployment via a separate contract; O365 E1 (no Teams) avoids double-paying for Teams."},
+    ],
+    who:["Budget-constrained enterprises","Teams-already-covered orgs","Basic knowledge workers"],
+    pitch:"<strong>'If the customer only needs email + cloud docs and already has Teams through another path, E1 is the entry point.'</strong> But always ask if they need desktop apps — if yes, they need E3."
+  },
+  {
+    id:"o365e3", cat:"Core M365", icon:"📄", iconBg:"icon-bg-core", catColor:"cat-color-core",
+    name:"Office 365 E3 (no Teams)",
+    sku:"CFQ7TTC0LF8R",
+    oneliner:"Full desktop Office suite + enterprise email for orgs that source Teams separately.",
+    tags:["tag-ent"],tagLabels:["Enterprise"],
+    erp:"₹1,440 / ₹2,298", nett:"₹17,141 / ₹2,104",
+    desc:"Office 365 E3 (no Teams) provides full desktop Office apps (Word, Excel, PowerPoint, Outlook, Publisher, Access), Exchange Online Plan 2 (unlimited archive, 100 GB mailbox), SharePoint, and OneDrive (1 TB). It intentionally excludes Teams — used by orgs that have Teams via another contract or that want to use a competing UCC tool.",
+    pros:["Full desktop Office apps (not just web)","100 GB mailbox + unlimited archive (Exchange Plan 2)","Good for orgs already on Zoom or Google Meet — avoids paying for Teams","Audio Conferencing eligibility when needed"],
+    cons:["No Intune","No Azure AD P1","No Teams — cannot just add it without a separate SKU","Pricier than E1 but still below M365 E3"],
+    usecases:[
+      {co:"Professional services firm already on Zoom",detail:"Doesn't want Teams but needs desktop Office and a large mailbox. O365 E3 (no Teams) is the exact fit."},
+    ],
+    who:["Non-Teams enterprises","Desktop Office power users","Compliance-heavy orgs needing large mailboxes"],
+    pitch:"<strong>'Does your customer use Zoom or WebEx?'</strong> If they're not on Teams and don't plan to be, paying for M365 E3 (which bundles Teams) is wasteful. O365 E3 (no Teams) is the right SKU."
+  },
+  {
+    id:"bbasic", cat:"Core M365", icon:"🌱", iconBg:"icon-bg-core", catColor:"cat-color-core",
+    name:"Microsoft 365 Business Basic",
+    sku:"CFQ7TTC0LH18",
+    oneliner:"Web-only Office + Teams + OneDrive for small businesses — the entry-level cloud step.",
+    tags:["tag-smb"],tagLabels:["SMB (≤300 users)"],
+    erp:"₹174", nett:"₹1,433 (9 seats example)",
+    desc:"Business Basic is Microsoft's entry-level SMB plan. Users get web and mobile Office apps only (not desktop), Teams, Exchange Online (50 GB mailbox), SharePoint, and 1 TB OneDrive. It caps at 300 users. Best for small businesses going cloud-first who don't need desktop Office.",
+    pros:["Most affordable M365 plan with Teams included","Good for staff who work in browser (Google Docs converts easily)","1 TB OneDrive — ample cloud storage","Mobile apps for Word/Excel/PowerPoint on phones/tablets"],
+    cons:["No desktop Office apps — cannot install Word on PC","Not suitable for heavy Excel users (pivot tables, macros)","50 GB mailbox — may feel small for executives","Capped at 300 users — can't scale to enterprise","No Intune or Azure AD P1"],
+    usecases:[
+      {co:"5-person startup",detail:"Everyone already works in browser tabs. Basic covers Teams for calls, OneDrive for files, and Outlook Web App for email."},
+      {co:"Small retail business",detail:"Owner and 3 staff — just need email and a shared drive. Basic is the right price point."},
+    ],
+    who:["Startups","Micro/small businesses (< 50 staff)","Budget-conscious SMBs"],
+    pitch:"<strong>'Is your customer still using Gmail and WhatsApp for business?'</strong> Business Basic is the cheapest way to get them professional email, Teams, and cloud storage in one go — at ₹174/user, it's cheaper than a SIM card."
+  },
+  {
+    id:"bstandard", cat:"Core M365", icon:"📦", iconBg:"icon-bg-core", catColor:"cat-color-core",
+    name:"Microsoft 365 Business Standard",
+    sku:"CFQ7TTC0LDPB",
+    oneliner:"Full desktop Office suite for SMBs — the most complete small business license.",
+    tags:["tag-smb"],tagLabels:["SMB (≤300 users)"],
+    erp:"₹924", nett:"₹245,365 (290 seats example)",
+    desc:"Business Standard is the most popular SMB plan. On top of Business Basic, it adds full desktop Office apps (Word, Excel, PowerPoint, Outlook, Access, Publisher) installable on up to 5 PCs, 5 tablets, and 5 phones. It also includes Microsoft Bookings, MileIQ, and webinar hosting via Teams.",
+    pros:["Full desktop Office — works fully offline","Teams webinars (up to 300 attendees)","Bookings for customer appointment scheduling","MileIQ for mileage tracking (useful for sales staff)","Best value desktop-Office option for SMBs"],
+    cons:["Capped at 300 users","No Intune device management","No Azure AD P1 — no conditional access","No advanced compliance or security tools"],
+    usecases:[
+      {co:"Accounting firm (20 staff)",detail:"Accountants need full Excel and Word for client reports. Business Standard gives them desktop apps + Bookings for client appointments."},
+      {co:"Marketing agency",detail:"Full PowerPoint for presentations, desktop Outlook for a professional email experience, and Teams for internal comms."},
+    ],
+    who:["SMBs needing desktop Office","Sales teams","Professional services firms under 300 people"],
+    pitch:"<strong>'Is the customer still buying standalone Office licenses?'</strong> A standalone Office Home & Business license costs around ₹6,000 one-time. Business Standard at ₹924/month also gives them Teams, OneDrive, email, and always-updated apps — much better value over 12 months."
+  },
+
+  // EXCHANGE
+  {
+    id:"exop1", cat:"Exchange", icon:"📧", iconBg:"icon-bg-exchange", catColor:"cat-color-exchange",
+    name:"Exchange Online Plan 1",
+    sku:"CFQ7TTC0LH16",
+    oneliner:"50 GB corporate mailbox — the entry-level standalone email license.",
+    tags:["tag-ent","tag-smb"],tagLabels:["SMB","Enterprise"],
+    erp:"₹402", nett:"₹379",
+    desc:"Exchange Online Plan 1 is a standalone email license giving 50 GB per-user mailbox, shared calendars, contacts, and mobile Outlook access. No archive, no legal hold. It is often added when an org needs email for a subset of users who don't need the full M365 suite.",
+    pros:["Clean standalone email — no bundled apps to confuse simple users","Works on Outlook desktop, mobile, and web","Shared calendars and resource booking","Can assign to shared mailboxes, reception desks, generic inboxes"],
+    cons:["50 GB mailbox — heavy email users will hit this","No archive — compliance teams will ask for Plan 2","No legal hold or eDiscovery","No discount applicable in Feb 2026 list"],
+    usecases:[
+      {co:"Vendor / contractor accounts",detail:"Company creates email accounts for temporary contractors who need a mailbox but not Office apps."},
+      {co:"Shared/generic mailboxes",detail:"info@company.com, support@company.com — shared by multiple staff, each needing a licensed mailbox."},
+    ],
+    who:["Part-time or contractor staff","Generic/shared mailbox scenarios","Orgs upgrading from on-premise Exchange"],
+    pitch:"<strong>'Does the customer have any accounts that only need email — no Office apps?'</strong> Instead of paying ₹3,594 (E3) for a shared support mailbox, Exchange Plan 1 at ₹402 covers it."
+  },
+  {
+    id:"exop2", cat:"Exchange", icon:"📬", iconBg:"icon-bg-exchange", catColor:"cat-color-exchange",
+    name:"Exchange Online Plan 2",
+    sku:"CFQ7TTC0LH1P",
+    oneliner:"100 GB mailbox + unlimited archive + legal hold — the compliance-grade email plan.",
+    tags:["tag-ent"],tagLabels:["Enterprise"],
+    erp:"₹798", nett:"₹3,013 (4 seats example)",
+    desc:"Plan 2 doubles the mailbox to 100 GB and adds In-Place Archive (unlimited), In-Place Hold for legal/compliance purposes, and Data Loss Prevention for email content. It is mandatory for any org subject to email retention requirements — financial, legal, healthcare.",
+    pros:["Unlimited archive — never worry about mailbox size","Legal hold preserves emails even if user deletes them","In-Place eDiscovery to search all mail","DLP policies for email (block sharing of credit card numbers, PAN details etc.)","Required for Microsoft 365 compliance add-ons"],
+    cons:["Double the price of Plan 1","No standalone Office apps","No Teams — must purchase separately","No discount in Feb 2026 list"],
+    usecases:[
+      {co:"BFSI firm's leadership",detail:"CFO, legal counsel, and compliance officers need unlimited archive and legal hold. Executives on Plan 2; junior staff on Plan 1."},
+      {co:"Law firm partners",detail:"Each partner's email must be retained for 7 years by regulation. Plan 2's archive handles this automatically."},
+    ],
+    who:["Compliance-regulated roles","Senior executives","Legal and finance teams"],
+    pitch:"<strong>'If your customer ever faces an audit or legal dispute, they'll need to produce emails. Plan 1 can't do that — Plan 2's legal hold means emails are preserved even if staff deletes them.'</strong>"
+  },
+  {
+    id:"exokiosk", cat:"Exchange", icon:"🗳️", iconBg:"icon-bg-exchange", catColor:"cat-color-exchange",
+    name:"Exchange Online Kiosk",
+    sku:"CFQ7TTC0LH0L",
+    oneliner:"Ultra-basic email for workers who barely use their mailbox — at minimum cost.",
+    tags:["tag-front"],tagLabels:["Frontline"],
+    erp:"₹198", nett:"₹237,565 (1271 seats example)",
+    desc:"Exchange Online Kiosk provides a 2 GB mailbox per user accessible via Outlook Web App only. No Outlook desktop client, no mobile access to corporate mailbox. Used for factory workers, warehouse staff, or kiosk users who need an email address but almost never use it.",
+    pros:["Cheapest standalone email option","Good for large frontline workforces where email is secondary","Web-only access — any shared device/browser works"],
+    cons:["2 GB mailbox — fills up quickly","No mobile Outlook access","No Outlook desktop client","No archive, no legal hold","Shared devices only — poor personal email experience"],
+    usecases:[
+      {co:"Garment factory (1000 workers)",detail:"Workers need a company email for HR communications, payslips, and leave requests — but nothing else. Kiosk at ₹198/user keeps costs low."},
+    ],
+    who:["Warehouse workers","Factory floor staff","Any large-scale frontline deployment where email is rare"],
+    pitch:"<strong>'For frontline workers who get maybe 3 emails a month, Kiosk at ₹198 vs F3 at ₹798 is a ₹600/user/month saving.'</strong> On 1000 workers, that's ₹7.2 lakh/month."
+  },
+
+  // SECURITY
+  {
+    id:"emse3", cat:"Security", icon:"🔐", iconBg:"icon-bg-security", catColor:"cat-color-security",
+    name:"Enterprise Mobility + Security E3",
+    sku:"CFQ7TTC0LHT4",
+    oneliner:"Device management + basic identity security for enterprises not ready for full M365.",
+    tags:["tag-ent"],tagLabels:["Enterprise"],
+    erp:"₹1,056", nett:"₹966 (1 seat example)",
+    desc:"EMS E3 bundles Microsoft Intune (device & app management), Azure AD Premium P1 (conditional access, MFA, SSO), and Azure Information Protection P1 (data classification). It's for organizations that want enterprise security add-ons without purchasing a full M365 E3 license.",
+    pros:["Intune: manage BYOD and corporate devices without full M365","Azure AD P1: enforce MFA and conditional access policies","Can be added on top of Office 365 E1/E3 (no M365 needed)","AIP P1 for classifying sensitive documents"],
+    cons:["No Office apps included","More expensive than getting M365 E3 which includes all three of these","No Defender for Endpoint","No Azure AD P2 features"],
+    usecases:[
+      {co:"Org on Office 365 E1 wanting device control",detail:"Already has O365 E1. Doesn't want to upgrade to M365 E3. EMS E3 add-on gives them Intune + AAD P1."},
+    ],
+    who:["IT admins running BYOD programs","Orgs on O365 who need device management"],
+    pitch:"<strong>'Already on O365 E1 but need to control company phones and enforce MFA?'</strong> EMS E3 bolt-on is cheaper than upgrading to M365 E3 if they only need security, not the Office upgrade."
+  },
+  {
+    id:"emse5", cat:"Security", icon:"🔑", iconBg:"icon-bg-security", catColor:"cat-color-security",
+    name:"Enterprise Mobility + Security E5",
+    sku:"CFQ7TTC0LFJ1",
+    oneliner:"Full identity + cloud security stack — the premium add-on for advanced threat defense.",
+    tags:["tag-ent","tag-sec"],tagLabels:["Enterprise","Advanced Security"],
+    erp:"₹1,644", nett:"₹1,505 (1 seat example)",
+    desc:"EMS E5 includes everything in E3 plus Azure AD Premium P2 (Privileged Identity Management, Identity Protection), Microsoft Defender for Identity, Microsoft Defender for Cloud Apps, and Azure Information Protection P2 (full rights management and auto-classification).",
+    pros:["Azure AD P2: just-in-time privileged access (PIM)","Defender for Identity: detects when AD accounts are being abused","Defender for Cloud Apps: CASB to monitor shadow IT","AIP P2: automatic classification of sensitive data","Identity Protection: risk-based conditional access"],
+    cons:["Expensive","Contains security tools that overlap with M365 E5 — check for double-licensing","Only the security layer — no Office apps"],
+    usecases:[
+      {co:"Financial services on O365 E3 (no M365)",detail:"Needs advanced identity protection and CASB without full M365 E5. EMS E5 + O365 E3 = cost-effective alternative."},
+    ],
+    who:["Security teams","CISO-led procurement","Regulated industries with complex identity needs"],
+    pitch:"<strong>'Before recommending M365 E5, check if the customer is on O365 E3. Adding EMS E5 might give them 80% of the security benefit at a much lower cost.'</strong>"
+  },
+  {
+    id:"defvuln", cat:"Security", icon:"🔍", iconBg:"icon-bg-security", catColor:"cat-color-security",
+    name:"Microsoft Defender Vulnerability Management Add-on",
+    sku:"CFQ7TTC0JPGV",
+    oneliner:"Continuous scanning for software vulnerabilities across all corporate devices.",
+    tags:["tag-addon","tag-sec"],tagLabels:["Add-on","Security"],
+    erp:"₹198", nett:"₹37,382 (200 seats example)",
+    desc:"This add-on extends Defender for Endpoint with continuous vulnerability assessment — it scans every managed device for unpatched software, misconfigurations, and weak settings, then gives IT a prioritized list of what to fix. Requires Defender for Endpoint P1 or P2 as the base.",
+    pros:["Continuous real-time vulnerability scanning","Prioritized remediation list — not just a dump of CVEs","Software inventory across all devices","Integration with Microsoft Intune for automated patching","Attack surface reduction recommendations"],
+    cons:["Add-on only — requires Defender for Endpoint P1/P2","Not useful without a device management strategy","Smaller orgs with basic IT can't act on the recommendations"],
+    usecases:[
+      {co:"IT services company managing client devices",detail:"The team uses the vulnerability dashboard to proactively patch client machines before issues escalate — reduces support calls."},
+    ],
+    who:["IT security teams","MSPs managing multiple clients","CISOs needing audit-ready vulnerability reports"],
+    pitch:"<strong>'If the customer already has Defender for Endpoint, this add-on pays for itself the first time it catches an unpatched RDP vulnerability before a ransomware attack does.'</strong>"
+  },
+  {
+    id:"defcloud", cat:"Security", icon:"☁️", iconBg:"icon-bg-security", catColor:"cat-color-security",
+    name:"Microsoft Defender for Cloud Apps",
+    sku:"CFQ7TTC0LHRR",
+    oneliner:"Discover and control shadow IT — see and govern every cloud app your employees use.",
+    tags:["tag-sec","tag-ent"],tagLabels:["Security","Enterprise"],
+    erp:"₹348", nett:"₹328",
+    desc:"Defender for Cloud Apps is a Cloud Access Security Broker (CASB). It discovers all cloud apps being used by employees (even personal Dropbox, Gmail etc.), assesses their risk, and lets IT enforce policies — block risky apps, limit data uploads, and monitor suspicious activity across 26,000+ cloud services.",
+    pros:["Discovers shadow IT — instantly see if employees use personal Dropbox or WhatsApp Web for work files","Real-time session control — can restrict actions inside cloud apps (view but not download)","Anomaly detection — flags when someone downloads 500 files at 2 AM","Integrates with Azure AD for conditional access controls"],
+    cons:["Complex to configure correctly — needs skilled IT admin","Overkill for orgs with less than 50 people","Can create friction if policies are too strict","Does not replace endpoint security"],
+    usecases:[
+      {co:"Large IT firm",detail:"Security team discovers staff are storing project files on personal Google Drive. MDCA blocks uploads to non-approved cloud storage and alerts security team."},
+      {co:"BFSI company",detail:"Real-time session controls prevent employees from downloading customer data from Salesforce onto personal laptops."},
+    ],
+    who:["Security and compliance teams","Orgs with BYOD and remote workers","Industries with data exfiltration risks"],
+    pitch:"<strong>'Ask the customer: do you know which cloud apps your employees are using with company data?'</strong> Most orgs are shocked when they run the discovery — it usually uncovers 50–100 unsanctioned apps immediately."
+  },
+  {
+    id:"defep1", cat:"Security", icon:"🛡️", iconBg:"icon-bg-security", catColor:"cat-color-security",
+    name:"Microsoft Defender for Endpoint P1",
+    sku:"CFQ7TTC0J1GB",
+    oneliner:"Next-gen antivirus and attack surface reduction for every corporate device.",
+    tags:["tag-sec"],tagLabels:["Security"],
+    erp:"₹300", nett:"₹283",
+    desc:"Defender for Endpoint P1 is the foundational endpoint protection layer. It provides next-generation antivirus (cloud-based, AI-driven malware detection), attack surface reduction rules (block macros, disable USB etc.), and network protection. It does NOT include EDR (threat investigation and response) — that's P2.",
+    pros:["Strong next-gen AV — better than traditional signature-based AV","Attack surface reduction rules block common attack vectors","Network protection against phishing domains","Cheaper entry point to Defender ecosystem","Included as part of M365 Business Premium"],
+    cons:["No EDR — cannot investigate alerts or respond to incidents","No threat and vulnerability management","No automated investigation — needs P2 for that","Manual response only"],
+    usecases:[
+      {co:"SMB that just wants better-than-Windows-Defender AV",detail:"P1 gives significantly better protection than the built-in Windows Defender while keeping costs low."},
+    ],
+    who:["SMBs with basic security needs","Orgs upgrading from legacy AV (Symantec, McAfee)","Teams that want cloud-managed AV"],
+    pitch:"<strong>'Is the customer still paying for Symantec or McAfee?'</strong> Defender P1 is likely cheaper, integrates natively with Windows, and is managed from the same console as their Microsoft licenses."
+  },
+  {
+    id:"defep2", cat:"Security", icon:"⚔️", iconBg:"icon-bg-security", catColor:"cat-color-security",
+    name:"Microsoft Defender for Endpoint P2",
+    sku:"CFQ7TTC0LGV0",
+    oneliner:"Full EDR — detect, investigate, and actively respond to threats on every device.",
+    tags:["tag-sec","tag-ent"],tagLabels:["Security","Enterprise"],
+    erp:"₹522", nett:"₹492",
+    desc:"P2 includes everything in P1 plus Endpoint Detection and Response (EDR) — the ability to see exactly what happened on a device during a security incident, threat hunting, automated investigation and remediation, and integration with Microsoft Sentinel for SIEM. The SOC team's core tool.",
+    pros:["EDR: full timeline of what happened on a compromised device","Automated investigation reduces SOC workload","Live response — remote shell into any managed device","Threat hunting via KQL queries across all endpoints","Included in M365 E5"],
+    cons:["Complex — needs a skilled security team to act on alerts","SOC team required to get full value","More expensive than P1","Alert fatigue is real if not tuned properly"],
+    usecases:[
+      {co:"Enterprise with a SOC team",detail:"Security analysts use MDE P2's EDR to investigate when an alert fires — see the full attack chain, isolate the device, and run remediation from the dashboard."},
+      {co:"Orgs post-ransomware",detail:"After a breach, the customer deploys P2 across all devices so the SOC team can detect lateral movement if any other device is compromised."},
+    ],
+    who:["Organizations with a security operations team","Post-incident hardening","Enterprises with compliance mandates for EDR"],
+    pitch:"<strong>'What happens when the customer gets a security alert today? Can they see what the attacker did?'</strong> P1 raises the alarm. P2 shows the full investigation trail and lets you respond in real time."
+  },
+  {
+    id:"defidentity", cat:"Security", icon:"🕵️", iconBg:"icon-bg-security", catColor:"cat-color-security",
+    name:"Microsoft Defender for Identity",
+    sku:"CFQ7TTC0LH0D",
+    oneliner:"Detect when attackers are abusing Active Directory credentials — before the breach spreads.",
+    tags:["tag-sec","tag-ent"],tagLabels:["Security","Enterprise"],
+    erp:"₹552", nett:"₹521",
+    desc:"Defender for Identity (formerly Azure ATP) monitors on-premises Active Directory signals to detect attacks like Pass-the-Hash, Pass-the-Ticket, Kerberoasting, and lateral movement. It's critical for any organization running an AD domain controller — because 80%+ of breaches involve compromised credentials.",
+    pros:["Detects identity-based attacks that endpoint tools miss","Covers on-prem AD — not just cloud identities","Maps the attack path in the kill chain before breach spreads","Real-time alerts when admin credentials are being misused","Included in EMS E5 and M365 E5"],
+    cons:["Requires on-premises Active Directory — not useful for fully cloud-only orgs","Needs a sensor deployed on each domain controller","Security team must be available to respond to alerts"],
+    usecases:[
+      {co:"Corporate with on-prem AD",detail:"When an attacker gets credentials via phishing and starts moving laterally in AD, Defender for Identity fires an alert within minutes — catching it before ransomware deploys."},
+    ],
+    who:["Any org with on-prem Active Directory","Enterprises that have been breached before","Security-first organizations"],
+    pitch:"<strong>'Most ransomware attacks happen because attackers get one credential, then quietly move through Active Directory for weeks. Defender for Identity catches that lateral movement — usually 24–48 hours before the attack actually fires.'</strong>"
+  },
+  {
+    id:"entraP1", cat:"Security", icon:"🪪", iconBg:"icon-bg-security", catColor:"cat-color-security",
+    name:"Microsoft Entra ID P1",
+    sku:"CFQ7TTC0LFLS",
+    oneliner:"The identity layer that enforces MFA, SSO, and conditional access across all apps.",
+    tags:["tag-ent"],tagLabels:["Enterprise"],
+    erp:"₹600", nett:"₹5,494 (10 seats example)",
+    desc:"Entra ID P1 (formerly Azure Active Directory P1) is the foundational enterprise identity layer. It enables Single Sign-On to 2,500+ SaaS apps, Conditional Access policies (block login from unfamiliar countries, require MFA on sensitive apps), and self-service password reset. Included in M365 E3 and EMS E3.",
+    pros:["SSO to thousands of apps — one password to rule them all","Conditional Access: 'require MFA when logging in from outside India'","Self-service password reset — cuts IT helpdesk calls significantly","Group-based app provisioning and de-provisioning","Microsoft Authenticator app for phishing-resistant MFA"],
+    cons:["No just-in-time privileged access (that's P2)","No Identity Protection risk scoring (that's P2)","Requires planning to implement conditional access properly"],
+    usecases:[
+      {co:"IT company with 20+ SaaS tools",detail:"Staff access Salesforce, Workday, GitHub, and Office 365 with one login. Conditional access blocks logins from outside India automatically."},
+    ],
+    who:["Orgs with 50+ users and multiple SaaS apps","Any org serious about MFA enforcement","IT teams tired of password reset calls"],
+    pitch:"<strong>'The #1 way companies get hacked is stolen passwords. Entra ID P1 conditional access means even with a stolen password, the attacker can't log in from an unfamiliar location or device.'</strong>"
+  },
+  {
+    id:"entraP2", cat:"Security", icon:"🔮", iconBg:"icon-bg-security", catColor:"cat-color-security",
+    name:"Microsoft Entra ID P2",
+    sku:"CFQ7TTC0LFK5",
+    oneliner:"Privileged Identity Management + AI-driven risk detection for the most sensitive accounts.",
+    tags:["tag-ent","tag-sec"],tagLabels:["Enterprise","High Security"],
+    erp:"₹900", nett:"₹8,241 (10 seats example)",
+    desc:"Entra ID P2 adds Privileged Identity Management (PIM — admins only have admin rights for specific time windows), Identity Protection (real-time risk scoring of each login attempt using AI), and Access Reviews (periodic audits of who has access to what). Included in EMS E5 and M365 E5.",
+    pros:["PIM: no one has permanent admin rights — reduces blast radius of a breach","Identity Protection: blocks risky logins automatically even without explicit policies","Access Reviews: automated audits prevent privilege creep","Entitlement Management: streamlined, approved access requests"],
+    cons:["Complex to set up PIM correctly — needs careful planning","More expensive than P1","Access Reviews need HR and IT to co-own — organizational change required"],
+    usecases:[
+      {co:"Bank with 10 IT admins",detail:"PIM ensures no admin has permanent global admin access. To do a sensitive change, they request access, get it for 1 hour, do the task, then the access expires automatically."},
+    ],
+    who:["Organizations with privileged admin accounts","Banks, NBFC, government","Post-audit compliance requirements"],
+    pitch:"<strong>'The most dangerous account in any organization is the Global Admin. Entra P2's PIM means nobody holds that key all the time — they request it, use it, and it expires. That limits the damage when an admin account gets phished.'</strong>"
+  },
+
+  // POWER BI
+  {
+    id:"pbippu", cat:"Power BI", icon:"📊", iconBg:"icon-bg-bi", catColor:"cat-color-bi",
+    name:"Power BI Premium Per User",
+    sku:"CFQ7TTC0HL8W",
+    oneliner:"Enterprise-grade analytics with paginated reports and AI features — for power users.",
+    tags:["tag-ent"],tagLabels:["Enterprise"],
+    erp:"₹2,394", nett:"₹48,227 (22 seats example)",
+    desc:"Power BI Premium Per User (PPU) gives analysts access to all Premium features — paginated reports (pixel-perfect print-quality reports), AI visuals (decomposition trees, key influencers), XMLA endpoints for third-party connectivity, and higher refresh rates. It's for data professionals creating sophisticated reports.",
+    pros:["Paginated reports — perfect for invoices, financial statements, regulatory filings","AI-powered visuals — natural language queries on your data","Higher data refresh frequency (48x/day vs 8x in Pro)","Access to Premium datasets from Pro workspace","Deployment pipelines for Dev/Test/Prod BI environments"],
+    cons:["Expensive — only justified for professional analysts, not casual viewers","Recipients of PPU reports must also have PPU license","Not needed for basic dashboard consumers"],
+    usecases:[
+      {co:"Finance team at a large corp",detail:"CFO needs a pixel-perfect monthly P&L printed report for board presentation. PPU's paginated reports handle this; Pro cannot."},
+    ],
+    who:["Data analysts","BI developers","Finance/compliance report creators"],
+    pitch:"<strong>'If the customer needs reports they can print and hand to a regulator or a board member — not just interactive dashboards — Power BI Pro won't cut it. PPU's paginated reports are the only way.'</strong>"
+  },
+  {
+    id:"pbipro", cat:"Power BI", icon:"📈", iconBg:"icon-bg-bi", catColor:"cat-color-bi",
+    name:"Power BI Pro",
+    sku:"CFQ7TTC0LHSF",
+    oneliner:"Share interactive dashboards and reports across your organization.",
+    tags:["tag-ent","tag-smb"],tagLabels:["Enterprise","SMB"],
+    erp:"₹1,398", nett:"₹11,521 (9 seats example)",
+    desc:"Power BI Pro allows users to create and publish interactive dashboards and reports, share them with other Pro users, and connect to hundreds of data sources. It's the standard license for both report creators and consumers who need to view shared reports.",
+    pros:["Create and publish interactive dashboards","Connect to Excel, SQL, Salesforce, Google Analytics, etc.","Share reports with any Pro-licensed user","Embed reports in SharePoint, Teams, or websites","Included in Microsoft 365 E5"],
+    cons:["Cannot share outside the organization without Premium","Limited to 8 dataset refreshes/day","No paginated reports (that needs PPU)","Both the creator AND the viewer need Pro — costs scale up"],
+    usecases:[
+      {co:"Sales team (20 people)",detail:"Sales Manager creates a daily sales dashboard from Salesforce data. All 20 reps get Pro so they can view and interact with their own performance data."},
+      {co:"Operations team",detail:"Ops head builds a supply chain KPI dashboard from Excel + ERP data. Department heads get Pro to view it."},
+    ],
+    who:["Anyone who creates OR views shared reports","Sales, finance, operations teams","SMBs wanting data-driven decisions"],
+    pitch:"<strong>'Is the customer still making decisions from Excel files emailed around? Power BI Pro connects directly to their data sources and gives everyone a live dashboard for less than ₹1,400/user.'</strong>"
+  },
+
+  // TEAMS
+  {
+    id:"teamsenterprise", cat:"Teams", icon:"💬", iconBg:"icon-bg-teams", catColor:"cat-color-teams",
+    name:"Microsoft Teams Enterprise",
+    sku:"CFQ7TTC0MZJF",
+    oneliner:"Full-featured Teams for enterprise — chat, meetings, webinars, and integrations.",
+    tags:["tag-ent"],tagLabels:["Enterprise"],
+    erp:"₹852", nett:"₹22,520 (28 seats example)",
+    desc:"Teams Enterprise is the standalone Teams license for organizations that already have Office 365 plans (which excluded Teams). It gives users full Teams functionality — chat, meetings (up to 1,000 attendees), webinars, Teams Phone (with an additional add-on), and integration with all Microsoft 365 services.",
+    pros:["Full meeting features including large webinars","Required add-on for O365 E1/E3 (no Teams) SKUs","Teams Rooms support","App integrations with 700+ third-party tools","Ideal for orgs that deliberately chose no-Teams O365 SKUs but then changed their mind"],
+    cons:["No Teams Phone calling (PSTN) — needs add-on","A bit redundant if the customer just upgrades to M365 E3 (which includes Teams)"],
+    usecases:[
+      {co:"Org on O365 E1 adding Teams",detail:"Rather than migrating to M365 E3, the company adds Teams Enterprise on top of existing O365 E1 licenses — quicker and potentially cheaper for a short-term project."},
+    ],
+    who:["O365 E1/E3 (no Teams) customers wanting to add Teams"],
+    pitch:"<strong>'Before adding Teams Enterprise as an add-on, always check if upgrading to M365 E3 is cheaper'</strong> — sometimes it is, and E3 gives them Intune and Azure AD P1 as well."
+  },
+  {
+    id:"teamsess", cat:"Teams", icon:"💭", iconBg:"icon-bg-teams", catColor:"cat-color-teams",
+    name:"Microsoft Teams Essentials",
+    sku:"CFQ7TTC0JN4R",
+    oneliner:"Just Teams — meetings, chat, and file sharing — with no Microsoft 365 baggage.",
+    tags:["tag-smb"],tagLabels:["SMB"],
+    erp:"₹138", nett:"₹130",
+    desc:"Teams Essentials is a standalone Teams license for external organizations or partners who only need Teams meetings and chat — without needing an M365 subscription. It provides 30-hour meeting limits, meeting recording to OneDrive, and group chats. Aimed at small orgs just needing a collaboration tool.",
+    pros:["Cheapest way to get Teams","Good for organizations that are not Microsoft shops but need to join Teams calls","30-hour meeting duration limit","Meeting recordings saved to OneDrive (10 GB)"],
+    cons:["No email (Exchange Online)","No Office apps","No SharePoint","Very limited compared to any M365 bundle","10 GB cloud storage vs 1 TB in M365 plans"],
+    usecases:[
+      {co:"Small CA firm that primarily uses Google Workspace",detail:"Clients communicate via Teams but the firm doesn't want M365. Teams Essentials gives them a Teams identity to join calls."},
+    ],
+    who:["External partners/vendors","Very small orgs (1-10 people)","Non-Microsoft shops that only need meetings"],
+    pitch:"<strong>'Great as an entry product to upsell.'</strong> Start a small org on Teams Essentials, then migrate them to Business Basic or Business Standard once they see the value of cloud email and OneDrive."
+  },
+  {
+    id:"teamsphone", cat:"Teams", icon:"📞", iconBg:"icon-bg-teams", catColor:"cat-color-teams",
+    name:"Microsoft Teams Phone Standard",
+    sku:"CFQ7TTC0LH0T",
+    oneliner:"Replace your office PBX and landlines with cloud-based calling through Teams.",
+    tags:["tag-ent","tag-addon"],tagLabels:["Enterprise","Add-on"],
+    erp:"₹738", nett:"₹696",
+    desc:"Teams Phone Standard is the add-on that turns Teams into a full business phone system — an enterprise PBX in the cloud. It gives every user a phone number, call queues, auto-attendant (press 1 for sales, press 2 for support), and call transfer. Works on desktop, mobile, and desk phones. Requires a separate calling plan or direct routing for actual PSTN calls.",
+    pros:["Eliminates traditional PBX hardware and maintenance","Single app for chat, meetings, and phone calls","Auto-attendant: professional call routing without a receptionist","Call recording, voicemail-to-email, and call history","Works on any device including mobile"],
+    cons:["Needs additional PSTN calling plan to make/receive calls to external numbers","Complex to migrate from traditional PBX — SIP trunk setup","Not suitable for contact centres (needs Teams Contact Center add-on)"],
+    usecases:[
+      {co:"25-person office on Teams",detail:"Company closes its BSNL/Airtel office line contract. All inbound calls route through Teams Phone. Staff answer on mobile or laptop wherever they are."},
+      {co:"Pan-India company",detail:"Teams Phone with direct routing saves significant monthly PSTN charges vs maintaining traditional PRI lines in each office city."},
+    ],
+    who:["Teams-mature organizations","Companies replacing legacy PBX","Remote/hybrid teams where staff aren't at desks"],
+    pitch:"<strong>'Ask the customer what they pay for their office phone system — PBX maintenance, ISDN lines, and hardware refresh.'</strong> Teams Phone typically eliminates all of that and bills per user per month."
+  },
+  {
+    id:"teamspremium", cat:"Teams", icon:"✨", iconBg:"icon-bg-teams", catColor:"cat-color-teams",
+    name:"Microsoft Teams Premium",
+    sku:"CFQ7TTC0RM8K",
+    oneliner:"AI-powered Teams — intelligent meeting recaps, custom branding, and advanced webinars.",
+    tags:["tag-ent","tag-addon"],tagLabels:["Enterprise","Add-on"],
+    erp:"₹996", nett:"₹940",
+    desc:"Teams Premium adds AI and enterprise features on top of regular Teams: Copilot AI meeting summaries and intelligent recaps, custom meeting branding (company logos, lobby backgrounds), advanced webinar features (registration, Q&A, Green Room backstage), Live Translation for meetings in 40+ languages, and advanced meeting protection.",
+    pros:["AI meeting recap — never miss action items even if you join late","Intelligent speaker timeline — jump to who said what in a recording","Custom company branding on meeting invites and lobbies","Live translation makes global meetings accessible","Green Room for webinar speakers to prep before going live"],
+    cons:["Expensive add-on on top of already-paid Teams","AI features require good meeting audio quality to work well","Not needed for basic internal meetings","Custom branding mainly relevant for client-facing meetings"],
+    usecases:[
+      {co:"IT consulting firm",detail:"Client meetings look professional with company branding. Post-meeting, AI recaps auto-populate action items into Planner — the PM doesn't need to take notes."},
+      {co:"Company running monthly webinars",detail:"Marketing runs product webinars for 500 registrants. Teams Premium's advanced webinar features handle registration, backstage, and Q&A."},
+    ],
+    who:["Teams-heavy organizations","Client-facing professional services","Companies running webinars or town halls"],
+    pitch:"<strong>'Does your customer's sales team lose deals because they can't remember what was discussed in client calls?'</strong> Teams Premium's AI recap + action item extraction makes every meeting a written record — automatically."
+  },
+
+  // PRODUCTIVITY
+  {
+    id:"plan1", cat:"Productivity", icon:"✅", iconBg:"icon-bg-productivity", catColor:"cat-color-productivity",
+    name:"Planner Plan 1",
+    sku:"CFQ7TTC0HDB1",
+    oneliner:"Simple visual task boards for teams — Microsoft's answer to Trello.",
+    tags:["tag-smb","tag-ent"],tagLabels:["SMB","Enterprise"],
+    erp:"₹996", nett:"₹912 (1 seat example)",
+    desc:"Planner Plan 1 gives access to Microsoft Planner — a Kanban-style task management tool integrated into Teams and Microsoft 365. Teams assign tasks, set due dates, track progress visually, and get a simple task view across multiple projects. Basic task management, no Gantt charts or advanced scheduling.",
+    pros:["Integrated into Teams — assign tasks directly from a Teams chat","Visual board + list + calendar views","My Tasks view shows all tasks from all boards in one place","No learning curve for basic users","File attachments from SharePoint directly on tasks"],
+    cons:["No Gantt chart (that's Project Plan 3)","No dependencies between tasks","Not suitable for complex, multi-team projects","No time tracking","Roadmap requires higher plan"],
+    usecases:[
+      {co:"Marketing team",detail:"Content calendar managed in Planner — content pieces as cards, columns as stages (Drafting → Review → Published). The whole team can see status at a glance."},
+    ],
+    who:["Small teams","Project coordinators","Teams already in Microsoft 365 who want basic task management"],
+    pitch:"<strong>'Is the team managing tasks in WhatsApp and Excel sheets?'</strong> Planner is already included in most M365 plans — Plan 1 unlocks the advanced features. No new tool to learn."
+  },
+  {
+    id:"pp3", cat:"Productivity", icon:"🗺️", iconBg:"icon-bg-productivity", catColor:"cat-color-productivity",
+    name:"Planner and Project Plan 3",
+    sku:"CFQ7TTC0HDB0",
+    oneliner:"Project management with Gantt charts, resource management, and roadmaps.",
+    tags:["tag-ent"],tagLabels:["Enterprise"],
+    erp:"₹2,994", nett:"₹27,415 (10 seats example)",
+    desc:"Project Plan 3 is Microsoft's mid-tier Project license. It combines Planner's task boards with proper project management capabilities: interactive Gantt charts, task dependencies, resource availability and workload management, and project roadmaps. It integrates with Teams and Power BI for reporting. Competes with Jira, Asana, and Monday.com.",
+    pros:["Gantt charts with task dependencies — schedule complex projects correctly","Resource management — see who is over/under-allocated","Project Roadmap — portfolio-level view across multiple projects","Integration with Teams and Power BI","Copilot in Project for AI-assisted scheduling (if licensed)"],
+    cons:["Expensive for basic users who just need Planner","Learning curve for PM newcomers","Desktop client (Project desktop) is very dated UX","Not a full agile tool — no sprint tracking out of the box"],
+    usecases:[
+      {co:"Construction project office",detail:"Project manager tracks 50+ concurrent tasks with dependencies across 8 teams. Resource view shows which subcontractor teams are over-scheduled."},
+      {co:"IT department running a migration",detail:"Gantt chart maps out data centre migration tasks, dependencies (can't migrate servers until switches are configured), and resource assignments."},
+    ],
+    who:["Project managers","PMO teams","Construction, manufacturing, engineering"],
+    pitch:"<strong>'Is the PM team running projects in Excel Gantt charts?'</strong> Project Plan 3 replaces that with a live, collaborative, auto-updating schedule that all stakeholders can see in real time."
+  },
+  {
+    id:"pp5", cat:"Productivity", icon:"🏗️", iconBg:"icon-bg-productivity", catColor:"cat-color-productivity",
+    name:"Planner and Project Plan 5",
+    sku:"CFQ7TTC0HD9Z",
+    oneliner:"Enterprise PPM — portfolio management across all projects with advanced analytics.",
+    tags:["tag-ent"],tagLabels:["Enterprise"],
+    erp:"₹5,490", nett:"₹10,054 (2 seats example)",
+    desc:"Project Plan 5 adds Project Online (the full enterprise PPM platform) and Portfolio Management on top of Plan 3 — aggregating all projects into a portfolio view, enabling demand management (request → approval → initiation), timesheet submission, and enterprise resource pools. For large PMOs managing 50+ simultaneous projects.",
+    pros:["Portfolio-level resource planning across all projects","Demand management — business stakeholders submit project requests that PMO prioritizes","Enterprise resource pools — manage shared resources across all projects","Timesheet submission and approval","Integrates with Power BI for executive portfolio dashboards"],
+    cons:["Very expensive","Only justified for large enterprise PMOs","Complex to configure correctly — needs dedicated PM tool administrator","Overkill for single-team project management"],
+    usecases:[
+      {co:"Large IT services firm",detail:"PMO manages 200 active projects. Plan 5 gives the PMO head a live view of every project's health, who is allocated where, and which projects are at risk."},
+    ],
+    who:["Enterprise PMOs","CIO/IT heads with large portfolio","Consulting firms managing multiple client projects"],
+    pitch:"<strong>'If the customer's PMO is still using a spreadsheet to track 50+ projects, they are flying blind. Plan 5 puts every project, every resource, and every deadline in one live view.'</strong>"
+  },
+  {
+    id:"visio1", cat:"Productivity", icon:"📐", iconBg:"icon-bg-productivity", catColor:"cat-color-productivity",
+    name:"Visio Plan 1",
+    sku:"CFQ7TTC0HD33",
+    oneliner:"Web-based diagramming for flowcharts, org charts, and process maps.",
+    tags:["tag-smb","tag-ent"],tagLabels:["SMB","Enterprise"],
+    erp:"₹498", nett:"₹470",
+    desc:"Visio Plan 1 is the browser-based Visio license for creating flowcharts, org charts, process diagrams, and network diagrams. No desktop app. Includes 2 GB of storage, real-time co-authoring, and access to Microsoft Teams integration for sharing diagrams.",
+    pros:["Browser-based — no install needed","Real-time co-authoring on diagrams","Integrates into Teams and SharePoint","Good for basic flowcharts and process documentation","Cheaper than Plan 2"],
+    cons:["Web only — no desktop Visio app","Limited template library vs Plan 2","2 GB cloud storage for diagrams","No advanced CAD or engineering diagram types","No BPMN or advanced notation support"],
+    usecases:[
+      {co:"HR team",detail:"Draws org charts for new office structure. Plan 1 is sufficient — no desktop app needed, and HR updates it collaboratively in the browser."},
+    ],
+    who:["Business analysts (basic)","HR for org charts","Ops teams documenting processes"],
+    pitch:"<strong>'Does the team use PowerPoint to draw diagrams?'</strong> Visio Plan 1 gives them proper diagramming tools with connectors, shapes, and templates at ₹498/user."
+  },
+  {
+    id:"visio2", cat:"Productivity", icon:"📏", iconBg:"icon-bg-productivity", catColor:"cat-color-productivity",
+    name:"Visio Plan 2",
+    sku:"CFQ7TTC0HD32",
+    oneliner:"Full desktop Visio with advanced network, engineering, and data-linked diagrams.",
+    tags:["tag-ent"],tagLabels:["Enterprise"],
+    erp:"₹1,500", nett:"₹28,320 (20 seats example)",
+    desc:"Visio Plan 2 includes the full Visio desktop app plus web, advanced diagram types (network topologies, rack diagrams, BPMN process notation, electrical diagrams), and data-linking — diagrams that automatically update from Excel, SQL, or SharePoint data. Used by network engineers, enterprise architects, and process analysts.",
+    pros:["Full desktop Visio — richest shape and template library","Data-linked diagrams — org chart auto-updates from HR Excel file","Advanced diagrams: network rack, floor plan, BPMN, UML","No file size/storage restrictions","Can export to AutoCAD formats"],
+    cons:["Expensive for occasional use","Desktop app is required — no offline fallback on web only","Learning curve for complex diagram types","Overkill for basic flowcharts — use Plan 1 instead"],
+    usecases:[
+      {co:"Network team at an ISP",detail:"Network engineers use Visio Plan 2 to create rack diagrams and network topology maps that auto-update from the IP address management (IPAM) database."},
+      {co:"Business process consultant",detail:"Draws BPMN 2.0 process maps for ERP implementation projects — needs the advanced notation support only Plan 2 provides."},
+    ],
+    who:["Network engineers","Enterprise architects","Business process consultants","Facility/floor plan designers"],
+    pitch:"<strong>'If the customer's IT team is drawing network diagrams in PowerPoint — and those diagrams are out of date the moment someone changes the network — Visio Plan 2's data-linked diagrams solve that problem permanently.'</strong>"
+  },
+
+  // SPECIALIZED
+  {
+    id:"copilotstudio", cat:"Specialized", icon:"🤖", iconBg:"icon-bg-special", catColor:"cat-color-special",
+    name:"Microsoft Copilot Studio",
+    sku:"CFQ7TTC0LH1F",
+    oneliner:"Build your own AI chatbot or Copilot for any business process — no-code required.",
+    tags:["tag-ent","tag-addon"],tagLabels:["Enterprise","AI"],
+    erp:"₹19,968", nett:"₹1,337,039 (65 sessions example)",
+    desc:"Copilot Studio (formerly Power Virtual Agents) is Microsoft's low-code platform for building custom AI chatbots and Microsoft Copilot extensions. Organizations use it to build internal helpdesks, HR bots, IT support agents, or customer-facing chatbots — all powered by Azure OpenAI with their own data as the knowledge base.",
+    pros:["Build custom AI agents without writing code","Connect to SharePoint, Dataverse, SQL, or any API as the knowledge base","Deploy in Teams, websites, mobile apps, or any channel","Create custom Copilot extensions for Microsoft 365 Copilot","Tracks conversations for analytics and improvement"],
+    cons:["Priced by sessions — high traffic bots get very expensive quickly","Requires careful prompt engineering to avoid hallucination","Governance needed to ensure bot answers stay on-topic","Not a replacement for full chatbot platforms for complex flows"],
+    usecases:[
+      {co:"HR department",detail:"HR builds a 'Leave Policy Bot' in Teams — employees ask it questions and it answers from the HR policy document in SharePoint. HR team stops answering the same questions 50x/week."},
+      {co:"IT helpdesk",detail:"IT Level 1 bot handles password resets, VPN troubleshooting, and software request status automatically — reducing ticket volume by 30%."},
+      {co:"Customer service",detail:"Builds a product FAQ chatbot on the website that escalates to a human agent when it can't answer confidently."},
+    ],
+    who:["Large orgs with high-volume repetitive queries","IT, HR, or customer service teams","Orgs building Microsoft 365 Copilot extensions"],
+    pitch:"<strong>'What does the customer's IT helpdesk spend most of its time on?'</strong> Password resets, VPN issues, and 'how do I do X in SAP?' — all answerable by a Copilot Studio bot, 24/7, in under 2 minutes."
+  },
+  {
+    id:"entrasuite", cat:"Specialized", icon:"🌐", iconBg:"icon-bg-special", catColor:"cat-color-special",
+    name:"Microsoft Entra Suite",
+    sku:"CFQ7TTC0NZT8",
+    oneliner:"The complete Zero Trust identity platform — secure access for users, apps, and infrastructure.",
+    tags:["tag-ent","tag-sec"],tagLabels:["Enterprise","Zero Trust"],
+    erp:"₹1,200", nett:"₹1,132",
+    desc:"Entra Suite is Microsoft's bundled identity and network access product — combining Entra ID P2, Entra Internet Access (secure web gateway), Entra Private Access (replacement for VPN), Entra Identity Governance, and Entra Workload ID. The complete Zero Trust access platform.",
+    pros:["Replaces VPN with modern Zero Trust network access","Identity Governance: automated access lifecycle management","Entra Internet Access: filters web traffic with Microsoft's threat intelligence","Single licensing for the entire Entra portfolio","Full access reviews and entitlement management"],
+    cons:["Very new product — less enterprise case history","Complex implementation — needs dedicated identity architect","Expensive and overkill for orgs not pursuing full Zero Trust","Requires mature IT governance to extract full value"],
+    usecases:[
+      {co:"Enterprise going Zero Trust",detail:"CIO mandate is to eliminate VPN and move to identity-verified, least-privilege access. Entra Suite provides every component of the Zero Trust architecture Microsoft recommends."},
+    ],
+    who:["Enterprise CISOs implementing Zero Trust","Large orgs with complex compliance","Government and defense contractors"],
+    pitch:"<strong>'Is the customer still using VPN?'</strong> VPNs give anyone who connects full access to the internal network. Entra Private Access replaces VPN so users only access the specific apps they're authorized for — and nothing else."
+  },
+  {
+    id:"entraworkload", cat:"Specialized", icon:"⚙️", iconBg:"icon-bg-special", catColor:"cat-color-special",
+    name:"Microsoft Entra Workload ID",
+    sku:"CFQ7TTC0R9QB",
+    oneliner:"Secure the identities of apps, scripts, and bots — not just human users.",
+    tags:["tag-ent","tag-sec"],tagLabels:["Enterprise","Developer Security"],
+    erp:"₹300", nett:"₹283",
+    desc:"Entra Workload ID extends identity protection to non-human identities — service accounts, apps, APIs, CI/CD pipelines, and background scripts. It provides Conditional Access for workload identities, Identity Protection risk detection for service accounts, and access reviews for app permissions. Critical for DevSecOps.",
+    pros:["Conditional Access policies for apps and service accounts, not just users","Identity Protection detects compromised service accounts","Access reviews for app-to-app permissions","Lifecycle management for service account credentials","Reduces risk from long-lived service account passwords/secrets"],
+    cons:["Very niche — only relevant to organizations with significant service account infrastructure","Requires DevSecOps maturity to implement","Not relevant for orgs with simple IT environments"],
+    usecases:[
+      {co:"Large software company",detail:"Has 200 microservices all authenticating to each other. Entra Workload ID ensures each service only accesses what it should — and flags when a service account behaves unusually."},
+      {co:"Bank DevOps team",detail:"CI/CD pipeline credentials are rotated and managed through Entra instead of hard-coded secrets in repositories — eliminates a common security vulnerability."},
+    ],
+    who:["DevOps and DevSecOps teams","Large enterprises with many service accounts","Software companies running microservices"],
+    pitch:"<strong>'Ask the customer's IT team: do you know how many non-human service accounts you have, what they access, and when their passwords expire?'</strong> Most orgs can't answer that — and a compromised service account is one of the most dangerous entry points for attackers."
+  }
+];
+
+const CAT_META = {
+  "Core M365":  {dot:"#58A6FF"},
+  "Exchange":   {dot:"#3FB950"},
+  "Security":   {dot:"#FF7B72"},
+  "Teams":      {dot:"#BC8CFF"},
+  "Power BI":   {dot:"#F0883E"},
+  "Productivity":{dot:"#E3B341"},
+  "Specialized":{dot:"#39D2B4"},
+};
+
+const CAT_COLOR_CLASS = {
+  "Core M365":"cat-color-core","Exchange":"cat-color-exchange","Security":"cat-color-security",
+  "Teams":"cat-color-teams","Power BI":"cat-color-bi","Productivity":"cat-color-productivity","Specialized":"cat-color-special"
+};
+const CAT_ICON_CLASS = {
+  "Core M365":"icon-bg-core","Exchange":"icon-bg-exchange","Security":"icon-bg-security",
+  "Teams":"icon-bg-teams","Power BI":"icon-bg-bi","Productivity":"icon-bg-productivity","Specialized":"icon-bg-special"
+};
+
+let activeCat = "all";
+let searchQ = "";
+
+function renderGrid(){
+  const section = document.getElementById('gridSection');
+  const filtered = PRODUCTS.filter(p=>{
+    const catOk = activeCat==="all" || p.cat===activeCat;
+    const q = searchQ.toLowerCase();
+    const searchOk = !q || p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || (p.usecases||[]).some(u=>u.detail.toLowerCase().includes(q));
+    return catOk && searchOk;
+  });
+
+  document.getElementById('resultNote').textContent = `${filtered.length} products`;
+
+  if(!filtered.length){
+    section.innerHTML = `<div class="no-results">No products match "<strong>${searchQ}</strong>" — try a different term.</div>`;
+    return;
+  }
+
+  const cats = activeCat==="all"
+    ? [...new Set(PRODUCTS.map(p=>p.cat))]
+    : [activeCat];
+
+  section.innerHTML = "";
+  cats.forEach(cat=>{
+    const catProducts = filtered.filter(p=>p.cat===cat);
+    if(!catProducts.length) return;
+
+    const head = document.createElement('div');
+    head.className = "cat-heading";
+    head.innerHTML = `<span class="cat-dot" style="background:${CAT_META[cat].dot}"></span><span class="${CAT_COLOR_CLASS[cat]}">${cat}</span>`;
+    section.appendChild(head);
+
+    const grid = document.createElement('div');
+    grid.className = "cards-grid";
+    catProducts.forEach(p=>{
+      const card = document.createElement('div');
+      card.className = "product-card";
+      card.setAttribute('tabindex','0');
+      card.setAttribute('role','button');
+      card.setAttribute('aria-label', `Open details for ${p.name}`);
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-icon ${p.iconBg}">${p.icon}</div>
+          <div class="card-meta">
+            <div class="card-cat ${CAT_COLOR_CLASS[p.cat]}">${p.cat}</div>
+            <div class="card-name">${p.name}</div>
+            <div class="card-oneliner">${p.oneliner}</div>
+          </div>
+        </div>
+        <div class="card-bottom">
+          ${(p.tags||[]).map((t,i)=>`<span class="tag ${t}">${p.tagLabels[i]}</span>`).join('')}
+          <div class="card-price">ERP ${p.erp}</div>
+        </div>
+      `;
+      card.addEventListener('click',()=>openModal(p.id));
+      card.addEventListener('keydown',e=>{ if(e.key==='Enter') openModal(p.id); });
+      grid.appendChild(card);
+    });
+    section.appendChild(grid);
+  });
+}
+
+function openModal(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  if(!p) return;
+  document.getElementById('mIcon').className = `modal-icon ${CAT_ICON_CLASS[p.cat]}`;
+  document.getElementById('mIcon').textContent = p.icon;
+  document.getElementById('mCat').className = `modal-cat ${CAT_COLOR_CLASS[p.cat]}`;
+  document.getElementById('mCat').textContent = p.cat;
+  document.getElementById('mName').textContent = p.name;
+  document.getElementById('mSku').textContent = `SKU: ${p.sku}`;
+
+  const body = document.getElementById('modalBody');
+  body.innerHTML = `
+    <div class="modal-section">
+      <div class="modal-section-title">What it does</div>
+      <p class="modal-desc">${p.desc}</p>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">Pricing snapshot</div>
+      <div class="price-row">
+        <div class="price-chip"><div class="label">ERP Price</div><div class="val">${p.erp}/user/mo</div></div>
+        ${p.nett ? `<div class="price-chip"><div class="label">Nett example</div><div class="val">${p.nett}</div></div>` : ''}
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">Pros & Cons</div>
+      <div class="pro-con-grid">
+        <div class="pro-box"><h4>✓ Pros</h4><ul>${p.pros.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div class="con-box"><h4>✗ Cons</h4><ul>${p.cons.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">Who it's for</div>
+      <div class="who-chips">${p.who.map(w=>`<span class="who-chip">${w}</span>`).join('')}</div>
+    </div>
+
+    ${p.usecases && p.usecases.length ? `
+    <div class="modal-section">
+      <div class="modal-section-title">Real-world use cases</div>
+      <div class="usecase-grid">${p.usecases.map(u=>`
+        <div class="usecase">
+          <div class="usecase-company">🏢 ${u.co}</div>
+          <div class="usecase-detail">${u.detail}</div>
+        </div>`).join('')}
+      </div>
+    </div>` : ''}
+
+    <div class="modal-section">
+      <div class="modal-section-title">How to pitch it to a partner</div>
+      <div class="pitch-box">${p.pitch}</div>
+    </div>
+  `;
+
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('modal').scrollTop = 0;
+  document.getElementById('modalBody').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e){
+  if(e.target===document.getElementById('overlay')) closeModal();
+}
+
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
+document.querySelectorAll('.cat-pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.cat-pill').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCat = btn.dataset.cat;
+    renderGrid();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input',e=>{
+  searchQ = e.target.value;
+  activeCat = "all";
+  document.querySelectorAll('.cat-pill').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.cat-pill[data-cat="all"]').classList.add('active');
+  renderGrid();
+});
+
+renderGrid();
+</script>
+</body>
+</html>
